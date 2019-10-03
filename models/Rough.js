@@ -7,6 +7,9 @@ const objSchema = mongoose.Schema({
     carat : Number,
     price :Number,
     rough_total : Number,
-    date : Date
+    date : {
+        type : Date,
+        default : new Date()
+    }
 });
 module.exports = mongoose.model('Rough',objSchema);
