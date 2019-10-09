@@ -21,7 +21,8 @@ app.use('/rough_carat',roughcRoute);
 const userRoute = require('./routes/sorting');
 app.use('/sort',userRoute);
 
-
+const registrationRoute = require('./routes/registration');
+app.use('/registration',registrationRoute);
 
 const loginRoute = require('./routes/login');
 app.use('/login',loginRoute);

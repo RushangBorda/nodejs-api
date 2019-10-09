@@ -183,7 +183,13 @@ router.post('/', async(req,res) => {
         try {
             const postSaved = await post.save();
             //console.log(postSaved.sort_total_carat);
-            res.json(postSaved);
+           // res.json(postSaved);
+           if(postSaved != null){
+            res.json({message : 'Data inserted Successfully'});
+        }   
+        else{
+            res.json({message : 'Database Error'});
+        }
         } catch (error) {
             res.json({message : error});
         }
@@ -224,8 +230,13 @@ router.post('/', async(req,res) => {
                 updated_rough_price : uppr - (uc_tl + uo_tl + um_tl + ug_tl + ucr_tl)
             }}
             );
-           res.json(updatePost);
-           
+           //res.json(updatePost);
+           if(updatePost != null){
+            res.json({message : 'Data Updated Successfully'});
+        }   
+        else{
+            res.json({message : 'Database Error'});
+        }
         } catch (error) {
             res.json({message : error});
         }
