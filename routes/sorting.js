@@ -6,9 +6,9 @@ const Unused = require('../models/Unused');
 
 router.get('/',async(req,res)=> {
     try {
-        const post = await Post.find();
+        const post = await Post.find({rough_id : req.body.rough_id});
         //console.log(post);
-        //res.json(post);
+        res.json(post);
 
     } catch (error) {
         res.send({message : error});
@@ -16,7 +16,7 @@ router.get('/',async(req,res)=> {
 
     try {
         const post = await rough.findById('5d78a7cc3751d917a497261c');
-        console.log(post.carat);
+        //console.log(post.carat);
         //res.json(post);
 
       
