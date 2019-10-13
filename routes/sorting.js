@@ -4,10 +4,10 @@ const Post = require('../models/Sorting');
 const rough = require('../models/Rough');
 const Unused = require('../models/Unused');
 
-router.get('/',async(req,res)=> {
+router.get('/:id',async(req,res)=> {
     try {
-        const post = await Post.find({rough_id : req.body.rough_id});
-        //console.log(post);
+        const post = await Post.find({rough_id : req.params.id});
+        //console.log(req.params.id);
         res.json(post);
 
     } catch (error) {

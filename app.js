@@ -15,11 +15,7 @@ app.use(cors());
 const roughRoute = require('./routes/rough');
 app.use('/rough',roughRoute);
 
-const roughList = require('./routes/rough_list');
-app.use('/rough_list',roughList);
 
-const roughcRoute = require('./routes/list_carat');
-app.use('/rough_carat',roughcRoute);
 
 const userRoute = require('./routes/sorting');
 app.use('/sort',userRoute);
