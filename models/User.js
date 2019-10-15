@@ -20,6 +20,8 @@ const sortSchema = mongoose.Schema({
     },
     sort_total_carat : Number,
     sort_total_price : Number 
+},{
+    timestamps : true
 });
 
 module.exports = mongoose.model('sort',sortSchema);

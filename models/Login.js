@@ -5,9 +5,9 @@ const objSchema = mongoose.Schema({
     password : String,
     phone_no : String,
     name : String,
-    date : {
-        type : Date,
-        default : new Date()
-    }
-});
+    
+},{
+    timestamps : true
+}
+);
 module.exports = mongoose.model('User_db',objSchema)

@@ -32,9 +32,8 @@ const objSchema = mongoose.Schema({
     sort_total_price : Number,
     updated_rough_carat : Number,
     updated_rough_price : Number,
-    date : {
-        type : Date,
-        default : new Date()
-    }
+   
+},{
+    timestamps : true
 });
 module.exports = mongoose.model('Sort',objSchema);

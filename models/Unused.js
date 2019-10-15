@@ -5,10 +5,9 @@ const objSchema = mongoose.Schema({
     carat : Number,
     unused_carat : Number,
     unused_total : Number,
-    date : {
-        type : Date,
-        default : new Date()
-    }
+    
+},{
+    timestamps : true
 });
 
 module.exports = mongoose.model("unused",objSchema);

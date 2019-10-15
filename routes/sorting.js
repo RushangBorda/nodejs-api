@@ -327,8 +327,6 @@ router.patch('/:id',async (req,res) => {
 
 
     try {
-
-
         const updatePost = await Post.updateOne(
             {rough_id : req.params.id},
             {$set :{chocki : {
@@ -373,18 +371,21 @@ router.patch('/:id',async (req,res) => {
         res.json({message : error});
     }
 
-    // try {
-    //     await Unused.updateOne(
-    //         {rough_id : req.params.id},
-    //         {$set :{
-    //             carat : uprt,
-    //             unused_carat : uprt - (uc_ca + uo_ca + um_ca + ug_ca + ucr_ca),
-    //             unused_total : uppr - (uc_tl + uo_tl + um_tl + ug_tl + ucr_tl)
-    //         }}
-    //     );
-    // } catch (error) {
-    //     res.json({message : error});            
-    // }
+    try {
+
+        console.log(uprt - (c_ca + o_ca + m_ca + g_ca + cr_ca))
+        await Unused.updateOne(
+            {rough_id : req.params.id},
+            {$set :{
+                carat : uprt,
+                unused_carat : uprt - (c_ca + o_ca + m_ca + g_ca + cr_ca),
+                unused_total : uppr - (c_tl + o_tl + m_tl + g_tl + cr_tl)
+            }}
+        );
+    } catch (error) {
+        res.json({message : error});
+    
+    }
 
 
 
