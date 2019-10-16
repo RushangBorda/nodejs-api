@@ -26,6 +26,9 @@ app.use('/registration',registrationRoute);
 const loginRoute = require('./routes/login');
 app.use('/login',loginRoute);
 
+const unusedRough = require('./routes/unused');
+app.use('/unused',unusedRough);
+
 app.get('/',(req,res) => {
     res.send('home');
 });
