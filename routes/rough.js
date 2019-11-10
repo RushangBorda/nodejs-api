@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Rough');
+const moment = require('moment');
 
 router.get('/c',async(req,res)=>{
     const data = await Post.find({completed : "false"});
-    console.log(data);
+    console.log(moment(new Date()).format('DD MM YYYY'));
     
 })
 
@@ -30,6 +31,7 @@ router.get('/', async(req,res)=> {
 
 
 
+
     var days = dat.map(function(item){
         var diff = Math.abs(new Date() - item.pay_date);
         return Math.ceil(diff/(1000 * 3600 *24));
@@ -48,11 +50,16 @@ router.get('/', async(req,res)=> {
     //console.log(days);
     //console.log(data);
     var combined = data.map(function(value,index) {
-        console.log(value)
-        return {...value._doc,remaining_days : days[index]};
+        //console.log(value)
+        let fd = moment(value.date).format('DD-MM-YYYY');
+        let fpd = moment(value.pay_date).format('DD-MM-YYYY');
+        return {...value._doc,
+            f_date : fd,
+            fp_date : fpd,
+            remaining_days : days[index]};
     });
-    console.log(days);
-    res.json(combined);
+    //console.log(days);
+    res.json(combined.reverse());
 })
 
 router.post('/', async(req,res) => {
@@ -92,10 +99,16 @@ router.put('/:id', async (req,res) => {
     var name =req.body.name || data.name,
     co = req.body.completed || data.completed,
     carat = req.body.carat || data.carat,
-    price = req.body.price || data.price;
+    price = req.body.price || data.price,
+    date = new Date(req.body.date)||data.date,
+    days = req.body.days ||data.days,
+    pay_date = moment(new Date(req.body.date)).add(days,'day')||data.pay_date;
+   
+
     
 
     try {
+    
 
 
         const updatePost = await Post.updateOne(
@@ -104,7 +117,10 @@ router.put('/:id', async (req,res) => {
                 completed : co,
                 carat : carat,
                 price : price,
-                rough_total : carat * price
+                rough_total : carat * price,
+                date,
+                days,
+                pay_date
         }}
         );
        //res.json(updatePost);
