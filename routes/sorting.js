@@ -6,9 +6,13 @@ const Unused = require('../models/Unused');
 
 router.get('/:id',async(req,res)=> {
     try {
-        const post = await Post.find({rough_id : req.params.id});
+        const post = await Post.findOne({rough_id : req.params.id});
         //console.log(req.params.id);
-        res.json(post);
+        let arr = [
+            post,post.chocki,post.crystal,
+        ]
+        res.json(arr);
+        console.log('s');
 
     } catch (error) {
         res.send({message : error});

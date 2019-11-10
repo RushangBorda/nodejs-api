@@ -7,6 +7,9 @@ const objSchema = mongoose.Schema({
     carat : Number,
     price :Number,
     rough_total : Number,
+    days : Number,
+    date : Date,
+    pay_date : Date
     
 }
 ,{
