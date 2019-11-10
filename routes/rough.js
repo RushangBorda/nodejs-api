@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Rough');
 
+router.get('/c',async(req,res)=>{
+    const data = await Post.find({completed : "false"});
+    console.log(data);
+    
+})
+
+
 router.get('/', async(req,res)=> {
     const data = await Post.find({completed : "false"});
     //const data_carat = await Post.find({carat : req.body.carat,completed : "false"});
@@ -16,16 +23,17 @@ router.get('/', async(req,res)=> {
     pay_date = new Date( mydate.setDate(mydate.getDate() + 1 ));
     //console.log(pay_date);
 
+    var dat = data.map(function(item){
+       return(item)
+    });
 
-    function addKey(obj,key,value) {
-        obj[key] = value;        
-    }
 
 
-    var days = data.map(function(item){
+
+    var days = dat.map(function(item){
         var diff = Math.abs(new Date() - item.pay_date);
-        diff1 = Math.ceil(diff/(1000 * 3600 *24));
-        return addKey(item,"remaining_days",diff1);
+        return Math.ceil(diff/(1000 * 3600 *24));
+        //return({item,remaining_days : diff1})
     });
 
     // for (let index = 0; index < days.length; index++) {
@@ -39,9 +47,12 @@ router.get('/', async(req,res)=> {
 
     //console.log(days);
     //console.log(data);
-    const data1 = data
-    console.log(data[0].remaining_days);
-    res.json(data1);
+    var combined = data.map(function(value,index) {
+        console.log(value)
+        return {...value._doc,remaining_days : days[index]};
+    });
+    console.log(days);
+    res.json(combined);
 })
 
 router.post('/', async(req,res) => {
@@ -121,6 +132,18 @@ router.delete('/:id',async(req,res)=> {
         res.json(error);
     }
     
+});
+
+router.get('/caret', async(req,res)=> {
+    const datas = await Post.find({completed : "false"});
+    const data = [];
+    console.log("TCL: datas", datas);
+    datas.map((value,id)=>{
+    console.log("TCL: value", value)
+        data.push(value.carat);
+    })
+    console.log("TCL: data", data);
+    res.json(data.reverse());
 });
 
 
