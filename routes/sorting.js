@@ -7,33 +7,37 @@ const Unused = require('../models/Unused');
 router.get('/:id',async(req,res)=> {
     try {
         const post = await Post.findOne({rough_id : req.params.id});
-        //console.log(req.params.id);
-        
-        //console.log(Object.keys(post._doc[0]));
+        let keys =(Object.keys(post._doc)),
+         val =(Object.values(post._doc)),
+         fi = [];
+
+        for (let index = 0; index < 13; index++) {
+            if (keys[index] == 'chocki'|| keys[index] == 'out' || keys[index] == 'markis'||keys[index] == 'gol'||keys[index] == 'crystal' ) {
+            let dat = Object.entries(val[index]) ;
+               fi.push({carat : dat[0][1],
+                price : dat[1][1],
+                total : dat[2][1],
+                type : keys[index]
+            }) ;
+            } 
+        }
         let arr = [
-            post,post.chocki,post.crystal,
+            post,...fi
         ]
         res.json(arr);
-        
-        
-
     } catch (error) {
         res.send({message : error});
     }
-
-    try {
-        const post = await rough.findById('5d78a7cc3751d917a497261c');
-        //console.log(post.carat);
-        //res.json(post);
+    // try {
+    //     const post = await rough.findById('5d78a7cc3751d917a497261c');
+    //     //console.log(post.carat);
+    //     //res.json(post);
 
       
 
-    } catch (error) {
-        res.send({message : error});
-    }
-
-
-
+    // } catch (error) {
+    //     res.send({message : error});
+    // }
 })
 
 router.get('/',async(req,res)=> {
@@ -64,14 +68,7 @@ router.post('/', async(req,res) => {
             um_tl ,
             ug_tl , 
             ucr_tl ;
-
-
-
-
-
-
-
-    
+            
     var uprt,uppr;
 
     try {
